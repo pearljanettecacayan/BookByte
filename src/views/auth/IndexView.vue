@@ -402,11 +402,8 @@ p {
   border-radius: 50%;
   box-shadow: 0 0 15px rgba(216, 9, 202, 0.8);
   animation: breathe 3s ease-in-out infinite, gradient-animation 5s ease infinite;
-  /* Add gradient animation */
   background: linear-gradient(#c096ff, #b909fe, #f749f1, #0ff);
-  /* Initial gradient */
   padding: 20px;
-  /* Keep this for padding */
 }
 
 @keyframes breathe {
@@ -513,7 +510,6 @@ p {
   animation: rotate 0.5s linear;
 }
 
-/* Existing and New Styles */
 .genre-menu {
   background-color: #212121;
   padding: 40px;
@@ -530,7 +526,7 @@ p {
 
 .genre-menu nav ul li {
   margin: 20px;
-  transition: transform 0.3s ease;
+  transition: transform 1.3s ease;
   animation: slideAnimation 3s linear infinite;
   flex: 1 1 100px;
   max-width: 100px;
@@ -564,7 +560,7 @@ p {
   }
 
   50% {
-    transform: translateX(20px);
+    transform: translateX(50px);
   }
 
   100% {
