@@ -5,6 +5,7 @@ import { useDisplay } from 'vuetify'
 const { smAndDown } = useDisplay();  
 </script>
 
+
 <template>
   <v-container fluid class="full-height-container">
     <v-row no-gutters class="custom-flex-container">

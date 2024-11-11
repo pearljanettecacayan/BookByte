@@ -2,19 +2,29 @@
 import AppLayout from '@/components/layout/AppLayout.vue'
 import SideNavigation from '@/components/layout/SideNavigation.vue'
 import { useFavoritesStore } from '@/stores/userFavorites'
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 
 const favoritesStore = useFavoritesStore()
 
 const favoriteBooks = computed(() => favoritesStore.favoriteBooks)
 
+// Function to remove a book from favorites
 const removeFavorite = (id) => {
   favoritesStore.removeFavorite(id)
 }
 
+// Function to handle the reading of a book
 const readBook = (id) => {
   console.log(`Read book with id: ${id}`);
 }
+
+// On component mounted, check if user is logged in and load their favorites
+onMounted(() => {
+  const userEmail = localStorage.getItem('userEmail');
+  if (userEmail) {
+    favoritesStore.setUser(userEmail); // Set the user email to load their favorites
+  }
+});
 </script>
 
 <template>
@@ -32,6 +42,7 @@ const readBook = (id) => {
         </h1>
 
         <v-row dense>
+          <!-- Loop through the favoriteBooks and display them -->
           <v-col v-for="book in favoriteBooks" :key="book.id" cols="12" sm="6" md="4">
             <v-card>
               <v-img :src="book.coverImage" height="200px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"></v-img>
@@ -47,6 +58,7 @@ const readBook = (id) => {
             </v-card>
           </v-col>
         </v-row>
+        <!-- Message displayed when no favorite books exist -->
         <p v-if="favoriteBooks.length === 0" class="text">No favorite books added yet.</p>
       </v-container>
     </template>

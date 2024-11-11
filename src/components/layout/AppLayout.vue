@@ -1,6 +1,5 @@
 <script setup>
 import { isAuthenticated } from '@/utils/supabase'
-import ProfileHeader from './ProfileHeader.vue'
 import SideNavigation from './SideNavigation.vue'
 import { onMounted, ref } from 'vue'
 import { useDisplay } from 'vuetify'
@@ -9,7 +8,7 @@ const teams = ref({
   systemAnalysts: [
     {
       name: 'Christine Pearl Aboc',
-      image: 'path_to_alice_image.jpg',
+      image: '/images/cp.jpg',
       facebook: 'https://web.facebook.com/christinepearl.aboc.5',
       github: 'https://github.com/christine'
     },
@@ -17,13 +16,13 @@ const teams = ref({
   developers: [
     {
       name: 'Dyanna Joy Castro',
-      image: 'path_to_charlie_image.jpg',
+      image: '/images/dj.jpg',
       facebook: 'https://web.facebook.com/ddannaaaa',
       github: 'https://github.com/dyannacastro'
     },
     {
       name: 'Pearl Janette Cacayan',
-      image: '/images/profile.jpg',
+      image: '/images/pj.jpg',
       facebook: 'https://web.facebook.com/pearlyangssss/',
       github: 'https://github.com/pearljanettecacayan'
     },
@@ -60,9 +59,15 @@ onMounted(() => {
 <template>
   <v-responsive>
     <v-app :class="{ 'blur-background': showDialog }">
-      <v-app-bar class="px-3" border :style="{ background: 'linear-gradient(#BA68C8, #AB47BC, #b909fe, #64c0ce)' }">
-        <v-app-bar-nav-icon v-if="props.isWithAppBarNavIcon" icon="mdi-menu" class="white-border"
-          @click="toggleDrawer" />
+
+      <v-app-bar class="px-3" border
+        :style="{ backgroundImage: 'url(/images/book-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }">
+        <v-app-bar-nav-icon v-if="props.isWithAppBarNavIcon" icon="mdi-menu" class="white-icon" @click="toggleDrawer" />
+        <v-list-item>
+          <template #title>
+            <span class="welcome-text">Welcome to BookByte</span>
+          </template>
+        </v-list-item>
         <v-spacer></v-spacer>
         <ProfileHeader v-if="isLoggedIn" />
       </v-app-bar>
@@ -78,13 +83,13 @@ onMounted(() => {
         color="black" app>
         <div :class="mobile ? 'w-100 text-center' : 'text-center'">
           <p class="font-italic">
-            Copyright © 2024 - <span class="font-weight-thin">BookByte | All Rights Reserved</span> <span
-              @click="showAllMembers" class="teams-link" style="color: aqua;">Teams</span>
+            Copyright © 2024 - <span class="font-weight-thin">BookByte | All Rights Reserved</span>
+            <span @click="showAllMembers" class="teams-link" style="color: aqua; padding: 5px;">Teams</span>
           </p>
         </div>
       </v-footer>
 
-      <!-- Team Members Dialog -->
+      <!-- Team Members -->
       <v-dialog v-model="showDialog" max-width="600px">
         <div class="card-background">
           <v-card elevation="8" class="pa-4" style="background-color: black;">
@@ -127,10 +132,11 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.white-border {
-  border: 2px solid white;
-  border-radius: 4px;
-  padding: 4px;
+.white-icon {
+  color: white !important;
+  border: 2px solid plum;
+  border-radius: 50%;
+  padding: 5px;
 }
 
 .font-weight-thin {
@@ -177,5 +183,25 @@ onMounted(() => {
 .github {
   color: white;
   text-decoration: none;
+}
+
+.welcome-text {
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: linear-gradient(45deg, #000, #000, #000, #000, plum, #b408a3cf, #64c0ce, #000);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-animation 5s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 100% 50%;
+  }
 }
 </style>

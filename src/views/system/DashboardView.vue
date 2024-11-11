@@ -40,7 +40,7 @@ const toggleFavorite = (book) => {
 }
 
 // Typing effect variables and function
-const fullText = "What do you want to read today?"
+const fullText = "What book do you want to search today?"
 const displayedText = ref('')
 
 const typeText = async () => {
@@ -223,7 +223,6 @@ export default {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-/* Gradient Text Styles */
 .gradient-text {
   background: linear-gradient(45deg, #64c0ce, #b909fe, #64c0ce);
   background-size: 200% 200%;

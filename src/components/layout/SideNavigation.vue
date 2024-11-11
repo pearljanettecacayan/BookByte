@@ -1,11 +1,14 @@
 <script setup>
 import { useDisplay } from 'vuetify'
 import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router';
+import { supabase } from '@/utils/supabase'; // Import supabase for logging out
 
 const props = defineProps(['isDrawerVisible']);
 const emit = defineEmits(['update:isDrawerVisible']);
 
 const { mobile } = useDisplay();
+const router = useRouter();
 
 watch(() => props.isDrawerVisible, (newVal) => {
   emit('update:isDrawerVisible', newVal);
@@ -14,8 +17,17 @@ watch(() => props.isDrawerVisible, (newVal) => {
 const mainNav = [
   ['Dashboard', 'mdi-view-dashboard'],
   ['Favorites', 'mdi-heart'],
-  ['Profile', 'mdi-account']
+  ['Profile', 'mdi-account'],
 ];
+
+const onLogout = async () => {
+  const { error } = await supabase.auth.signOut();
+  if (error) {
+    console.error('Error during logout:', error);
+  } else {
+    router.replace('/');
+  }
+};
 </script>
 
 <template>
@@ -28,7 +40,16 @@ const mainNav = [
           <strong>{{ title }}</strong>
         </template>
       </v-list-item>
-      <v-divider></v-divider>
+
+      <!-- Divider -->
+      <v-divider class="divider"></v-divider>
+
+      <!-- Logout Item -->
+      <v-list-item :prepend-icon="'mdi-logout'" @click="onLogout" class="nav-item logout-item">
+        <template #title>
+          <strong>Logout</strong>
+        </template>
+      </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -40,10 +61,26 @@ const mainNav = [
 
 .nav-item {
   color: #BA68C8;
+  margin-top: 2%;
   transition: color 0.3s ease;
 }
 
 .nav-item:hover {
   color: purple;
+}
+
+.logout-item {
+  color: #BA68C8;
+  transition: color 0.3s ease;
+  margin-top: 3%;
+}
+
+.logout-item:hover {
+  color: red;
+}
+
+.divider {
+  margin-top: 10%;
+  color: white;
 }
 </style>
