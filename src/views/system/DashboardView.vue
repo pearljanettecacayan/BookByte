@@ -4,7 +4,6 @@ import { ref, computed, watch, onMounted } from 'vue'
 import axios from 'axios'
 import { useFavoritesStore } from '@/stores/userFavorites'
 
-// Reactive variables
 const isDrawerVisible = ref(true)
 const tabs = ref('fiction')
 const cards = ref([])
@@ -19,7 +18,6 @@ const genres = ref([
   'mystery', 'romance', 'self-help', 'thriller', 'cookbooks'
 ]);
 
-// Favorites store logic
 const favoritesStore = useFavoritesStore()
 
 const isFavorite = (book) => {
@@ -39,8 +37,7 @@ const toggleFavorite = (book) => {
   }
 }
 
-// Typing effect variables and function
-const fullText = "What book do you want to search today?"
+const fullText = "What bookdo you want to search today?"
 const displayedText = ref('')
 
 const typeText = async () => {
@@ -70,18 +67,15 @@ const fetchItems = async (genre) => {
   }
 }
 
-// Watch for changes in tabs and fetch new items
 watch(tabs, (newGenre) => {
   fetchItems(newGenre)
 })
 
-// Initial component setup
 onMounted(() => {
   typeText()
   fetchItems(tabs.value)
 })
 
-// Filtered cards computed property
 const filteredCards = computed(() => {
   return cards.value.filter((card) =>
     card.title.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -143,15 +137,16 @@ export default {
           </v-col>
         </v-row>
 
-        <!-- Book Genres Title with Gradient -->
         <h3 class="gradient-text my-4 text-center">BOOK GENRES</h3>
 
         <v-row justify="center" class="genre-icons my-4">
           <v-col v-for="genre in genres" :key="genre" cols="12" sm="6" md="4" lg="3">
-            <v-btn class="genre-icon gradient-button" @click="tabs = genre" elevation="2" block rounded>
+            <v-btn class="genre-icon gradient-button" :class="{ active: tabs === genre }" @click="tabs = genre"
+              elevation="2" block rounded>
               {{ genre.charAt(0).toUpperCase() + genre.slice(1) }}
             </v-btn>
           </v-col>
+
         </v-row>
 
         <v-divider></v-divider>
@@ -246,7 +241,6 @@ export default {
   }
 }
 
-/* Styles for genre icons */
 .genre-icons {
   margin: 20px 0;
 }
@@ -261,6 +255,18 @@ export default {
   transition: background-color 0.3s;
 }
 
+/* Active genre button styles */
+.genre-icon.active {
+  background: linear-gradient(45deg, #b909fe, #64c0ce, #b909fe);
+  /* Keep the hover effect when clicked */
+}
+
+/* Style for inactive genre buttons */
+.genre-icon:not(.active) {
+  background: linear-gradient(45deg, #64c0ce, #b909fe, #64c0ce);
+  /* Default background */
+}
+
 @media (max-width: 600px) {
   .genre-icon {
     font-size: 0.9rem;
@@ -268,7 +274,6 @@ export default {
   }
 }
 
-/* Gradient background for genre buttons */
 .gradient-button {
   background: linear-gradient(45deg, #64c0ce, #b909fe, #64c0ce);
   color: white;

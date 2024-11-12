@@ -81,13 +81,17 @@ onMounted(() => {
 
       <v-footer class="font-weight-bold d-flex justify-center align-center" :class="mobile ? 'text-caption' : ''"
         color="black" app>
-        <div :class="mobile ? 'w-100 text-center' : 'text-center'">
-          <p class="font-italic">
-            Copyright © 2024 - <span class="font-weight-thin">BookByte | All Rights Reserved</span>
+        <div :class="mobile ? 'w-100 text-center' : 'd-flex align-center text-center'">
+          <img src="/images/book-logo.png" alt="BookByte Logo" class="footer-logo" />
+
+          <p class="font-italic ml-2">
+            © 2024 <span class="font-weight-thin">BookByte | All Rights Reserved</span>
             <span @click="showAllMembers" class="teams-link" style="color: aqua; padding: 5px;">Teams</span>
           </p>
         </div>
       </v-footer>
+
+
 
       <!-- Team Members -->
       <v-dialog v-model="showDialog" max-width="600px">
@@ -203,5 +207,18 @@ onMounted(() => {
   100% {
     background-position: 100% 50%;
   }
+}
+
+.footer-logo {
+  max-width: 45px;
+  height: auto;
+}
+
+.v-footer .d-flex {
+  align-items: center;
+}
+
+.v-footer p {
+  margin-left: 10px;
 }
 </style>

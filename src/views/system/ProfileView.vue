@@ -5,22 +5,28 @@ import { ref, onMounted } from 'vue';
 const user = ref({
   name: 'Dyanna Castro',
   email: 'ddanna@gmail.com',
-  profilePicture: '/images/profilleee.jpg', // Default image
+  profilePicture: '/images/profilleee.jpg', // Default profile picture
+  coverPhoto: '/images/default-cover.jpg', // Default cover photo
   about: 'I love reading books and learning new things!',
 });
 
 const router = useRouter();
 
-// To handle the profile image update
+// To handle the profile and cover image updates
 const profileImage = ref(user.value.profilePicture);
+const coverImage = ref(user.value.coverPhoto);
 
-// Function to handle the profile picture change
-const handleImageChange = (event) => {
+// Function to handle the profile picture or cover photo change
+const handleImageChange = (event, type) => {
   const file = event.target.files[0];
   if (file) {
     const reader = new FileReader();
     reader.onloadend = () => {
-      profileImage.value = reader.result; // Update profile picture with the selected image
+      if (type === 'profile') {
+        profileImage.value = reader.result; // Update profile picture
+      } else if (type === 'cover') {
+        coverImage.value = reader.result; // Update cover photo
+      }
     };
     reader.readAsDataURL(file);
   }
@@ -28,7 +34,8 @@ const handleImageChange = (event) => {
 
 // Function to save the profile (to localStorage)
 const saveProfile = () => {
-  user.value.profilePicture = profileImage.value; // Save the updated profile picture
+  user.value.profilePicture = profileImage.value;
+  user.value.coverPhoto = coverImage.value;
   localStorage.setItem('userProfile', JSON.stringify(user.value)); // Save to localStorage
   console.log('Profile saved!', user.value);
 };
@@ -43,19 +50,31 @@ onMounted(() => {
   const storedProfile = localStorage.getItem('userProfile');
   if (storedProfile) {
     user.value = JSON.parse(storedProfile);
-    profileImage.value = user.value.profilePicture; // Set the profile picture to saved one
+    profileImage.value = user.value.profilePicture;
+    coverImage.value = user.value.coverPhoto;
   }
 });
 </script>
 
 <template>
   <div class="profile-container">
+    <div class="cover-photo-container">
+      <img :src="coverImage" alt="Set Cover Photo" class="cover-photo text-center" />
+      <label for="cover-upload" class="cover-change-icon">
+        <i class="mdi mdi-pencil"></i>
+      </label>
+      <input type="file" id="cover-upload" @change="(e) => handleImageChange(e, 'cover')" class="image-input"
+        accept="image/*" />
+    </div>
+
+    <!-- Profile Picture and Details Section -->
     <div class="profile-picture-container">
       <img :src="profileImage" alt="Profile Picture" class="profile-picture" />
       <label for="image-upload" class="image-change-icon">
         <i class="mdi mdi-pencil"></i>
       </label>
-      <input type="file" id="image-upload" @change="handleImageChange" class="image-input" accept="image/*" />
+      <input type="file" id="image-upload" @change="(e) => handleImageChange(e, 'profile')" class="image-input"
+        accept="image/*" />
     </div>
 
     <div class="user-details">
@@ -79,11 +98,45 @@ onMounted(() => {
   justify-content: center;
   text-align: center;
   margin: 20px;
-  margin-top: 9%;
+}
+
+.cover-photo-container {
+  width: 100%;
+  height: 300px;
+  position: relative;
+  margin-bottom: 5px;
+}
+
+.cover-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+.cover-change-icon {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 50%;
+  padding: 8px;
+  color: white;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s;
+}
+
+.cover-change-icon:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
 
 .profile-picture-container {
-  margin-bottom: 16px;
+  margin-top: -40px;
   position: relative;
 }
 
