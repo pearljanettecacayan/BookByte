@@ -22,7 +22,7 @@ const readBook = (id) => {
 onMounted(() => {
   const userEmail = localStorage.getItem('userEmail');
   if (userEmail) {
-    favoritesStore.setUser(userEmail); // Set the user email to load their favorites
+    favoritesStore.setUser(userEmail);
   }
 });
 </script>
@@ -35,14 +35,15 @@ onMounted(() => {
 
     <template #content>
       <v-container>
-        <h1 class="text-right my-4"> MY FAV BOOKS
+        <h1 class="text-right my-4">
+          <span class="gradient-text">MY FAVORITES</span>
           <v-btn icon color="black" dark class="fav-icon mx-2">
             <v-icon color="purple">mdi-heart</v-icon>
           </v-btn>
         </h1>
 
+
         <v-row dense>
-          <!-- Loop through the favoriteBooks and display them -->
           <v-col v-for="book in favoriteBooks" :key="book.id" cols="12" sm="6" md="4">
             <v-card>
               <v-img :src="book.coverImage" height="200px" gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"></v-img>
@@ -58,7 +59,6 @@ onMounted(() => {
             </v-card>
           </v-col>
         </v-row>
-        <!-- Message displayed when no favorite books exist -->
         <p v-if="favoriteBooks.length === 0" class="text">No favorite books added yet.</p>
       </v-container>
     </template>
@@ -137,5 +137,28 @@ onMounted(() => {
 
 .v-card:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.gradient-text {
+  background: linear-gradient(45deg, #64c0ce, #b909fe, #64c0ce);
+  background-size: 200% 200%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 1.8rem;
+  animation: gradient-animation 3s ease infinite;
+}
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }
 </style>

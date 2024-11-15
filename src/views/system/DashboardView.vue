@@ -13,8 +13,8 @@ const error = ref(null)
 
 // Genres array
 const genres = ref([
-  'fiction', 'education', 'fantasy', 'philosophy',
-  'psychology', 'sociology', 'adventure', 'biography',
+  'fiction', 'education', 'fantasy',
+  'psychology', 'sociology', 'adventure',
   'mystery', 'romance', 'self-help', 'thriller', 'cookbooks'
 ]);
 
@@ -37,7 +37,7 @@ const toggleFavorite = (book) => {
   }
 }
 
-const fullText = "What bookdo you want to search today?"
+const fullText = "What book do you want to search today?"
 const displayedText = ref('')
 
 const typeText = async () => {
@@ -89,23 +89,14 @@ export default {
     return {
       slides: [
         { image: '/images/table.png' },
-        { image: '/images/arrival_1.jpg' },
-        { image: '/images/img3.png' },
-        { image: '/images/arrival_4.jpg' },
-        { image: '/images/img4.png' },
-        { image: '/images/arrival_2.jpg' },
-        { image: '/images/img5.png' },
-        { image: '/images/arrival_6.jpg' },
-        { image: '/images/img9.png' },
-        { image: '/images/arrival_7.jpg' },
-        { image: '/images/img10.png' },
-        { image: '/images/arrival_8.webp' },
-        { image: '/images/img11.png' },
-        { image: '/images/arrival_9.jpg' },
-        { image: '/images/img13.png' },
-        { image: '/images/arrival_10.jpg' },
-        { image: '/images/img14.png' }
-
+        { image: '/images/1.png' },
+        { image: '/images/book1.png' },
+        { image: '/images/book2.png' },
+        { image: '/images/book3.png' },
+        { image: '/images/book4.png' },
+        { image: '/images/book5.png' },
+        { image: '/images/book6.png' },
+        { image: '/images/book7.png' },
       ],
     }
   },
@@ -119,7 +110,7 @@ export default {
         <h3 class="gradient-text"></h3>
 
 
-        <v-carousel cycle height="400" hide-arrows hide-delimiters :interval="2000">
+        <v-carousel cycle height="400" hide-arrows hide-delimiters :interval="4000">
           <v-carousel-item v-for="(slide, i) in slides" :key="i">
             <v-img :src="slide.image" height="100%">
               <v-row class="fill-height" align="center" justify="center"></v-row>
@@ -137,7 +128,7 @@ export default {
           </v-col>
         </v-row>
 
-        <h3 class="gradient-text my-4 text-center">BOOK GENRES</h3>
+        <h3 class="gradient-text my-4 ">BOOK GENRES</h3>
 
         <v-row justify="center" class="genre-icons my-4">
           <v-col v-for="genre in genres" :key="genre" cols="12" sm="6" md="4" lg="3">
@@ -151,7 +142,7 @@ export default {
 
         <v-divider></v-divider>
 
-        <h3 class="gradient-text my-4 ">Search Results</h3>
+        <h3 class="gradient-text my-4 ">SEARCH RESULTS</h3>
 
 
         <v-row dense>
@@ -175,10 +166,17 @@ export default {
         </v-row>
 
         <p v-if="error" class="error">{{ error }}</p>
+
+
       </v-container>
+
     </template>
+
   </AppLayout>
+
 </template>
+
+
 
 <style scoped>
 .dashboard {
@@ -255,16 +253,12 @@ export default {
   transition: background-color 0.3s;
 }
 
-/* Active genre button styles */
 .genre-icon.active {
-  background: linear-gradient(45deg, #b909fe, #64c0ce, #b909fe);
-  /* Keep the hover effect when clicked */
+  background: linear-gradient(45deg, #b909fe, #64c0ce, #64c0ce, #64c0ce, #b909fe);
 }
 
-/* Style for inactive genre buttons */
 .genre-icon:not(.active) {
   background: linear-gradient(45deg, #64c0ce, #b909fe, #64c0ce);
-  /* Default background */
 }
 
 @media (max-width: 600px) {

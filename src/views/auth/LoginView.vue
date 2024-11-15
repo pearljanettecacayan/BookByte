@@ -25,10 +25,11 @@ const { smAndDown } = useDisplay();
 
           <v-card-title class="text-center d-flex flex-column align-center justify-center">
             <v-img src="/images/book-logo.png" :height="smAndDown ? '120px' : '200px'"
-              :width="smAndDown ? '120px' : '200px'" contain class="mx-auto"></v-img>
+              :width="smAndDown ? '120px' : '200px'" contain class="mx-auto pulsing-image"></v-img>
             <h2 class="bookbyte font-weight-black">BOOKBYTE</h2>
             <h5>Login</h5>
           </v-card-title>
+
 
           <v-card-text class="pt-4">
             <v-divider class="my-2"></v-divider>
@@ -173,5 +174,26 @@ const { smAndDown } = useDisplay();
 .mobile-welcome-section {
   text-align: center;
   margin-bottom: 10px;
+}
+
+.brightened-image {
+  filter: brightness(0.8);
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.1);
+  }
+}
+
+.pulsing-image {
+  animation: pulse 2s infinite;
 }
 </style>

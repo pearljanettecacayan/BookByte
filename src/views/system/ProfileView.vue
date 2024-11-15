@@ -58,6 +58,7 @@ onMounted(() => {
 
 <template>
   <div class="profile-container">
+    <!-- Cover Photo Section -->
     <div class="cover-photo-container">
       <img :src="coverImage" alt="Set Cover Photo" class="cover-photo text-center" />
       <label for="cover-upload" class="cover-change-icon">
@@ -67,7 +68,6 @@ onMounted(() => {
         accept="image/*" />
     </div>
 
-    <!-- Profile Picture and Details Section -->
     <div class="profile-picture-container">
       <img :src="profileImage" alt="Profile Picture" class="profile-picture" />
       <label for="image-upload" class="image-change-icon">
@@ -84,8 +84,11 @@ onMounted(() => {
     </div>
 
     <div class="button-container">
+      <button @click="goBack" class="edit-button"><v-icon dark left>
+          mdi-arrow-left
+        </v-icon>Back</button>
       <button @click="saveProfile" class="save-button">Save Profile</button>
-      <button @click="goBack" class="edit-button">Back</button>
+
     </div>
   </div>
 </template>

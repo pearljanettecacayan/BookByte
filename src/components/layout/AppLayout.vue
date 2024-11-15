@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue'
 import { useDisplay } from 'vuetify'
 
 const teams = ref({
-  systemAnalysts: [
+  systemAnalyst: [
     {
       name: 'Christine Pearl Aboc',
       image: '/images/cp.jpg',
@@ -60,8 +60,7 @@ onMounted(() => {
   <v-responsive>
     <v-app :class="{ 'blur-background': showDialog }">
 
-      <v-app-bar class="px-3" border
-        :style="{ backgroundImage: 'url(/images/book-cover.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }">
+      <v-app-bar class="px-3" border>
         <v-app-bar-nav-icon v-if="props.isWithAppBarNavIcon" icon="mdi-menu" class="white-icon" @click="toggleDrawer" />
         <v-list-item>
           <template #title>
@@ -72,6 +71,7 @@ onMounted(() => {
         <ProfileHeader v-if="isLoggedIn" />
       </v-app-bar>
 
+
       <SideNavigation v-model:isDrawerVisible="isDrawerVisible" />
 
       <v-main>
@@ -79,7 +79,7 @@ onMounted(() => {
         <slot name="content" />
       </v-main>
 
-      <v-footer class="font-weight-bold d-flex justify-center align-center" :class="mobile ? 'text-caption' : ''"
+      <v-footer class="footer font-weight-bold d-flex justify-center align-center" :class="mobile ? 'text-caption' : ''"
         color="black" app>
         <div :class="mobile ? 'w-100 text-center' : 'd-flex align-center text-center'">
           <img src="/images/book-logo.png" alt="BookByte Logo" class="footer-logo" />
@@ -220,5 +220,9 @@ onMounted(() => {
 
 .v-footer p {
   margin-left: 10px;
+}
+
+.v-app-bar {
+  background: black
 }
 </style>
